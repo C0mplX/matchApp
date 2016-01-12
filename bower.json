@@ -1,0 +1,29 @@
+{
+  "name": "app",
+  "version": "0.0.0",
+  "authors": [
+    "Ole Martin <olemartin.skaug@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "angular-loader": "~1.4.0",
+    "bootstrap": "~3.3.6",
+    "bootstrap-material-design": "~0.5.2",
+    "angular-animate": "~1.4.8",
+    "font-awesome": "~4.5.0"
+  }
+}

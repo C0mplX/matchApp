@@ -1,0 +1,16 @@
+<div class="container">
+  <!--Life-->
+  <span class="life-container" ng-repeat="life in lifes track by $index">
+    <i class="fa fa-{{life}}"></i>
+  </span>
+  <!--End life-->
+
+  <h3>Press the color</h3>
+  <span class="colorX" style="color: {{colorChoosenStyle}}">{{chooseColor}}</span>
+  <div class="color-scheme" ng-repeat="(key, value) in colors track by $index" >
+    <div class="col-xs-4">
+      <div ng-click="reloadRoute(key)" class="color-box" style="background-color: {{colors[key]}}" ></div>
+    </div>
+  </div>
+  <h1>{{points}}</h1>
+</div>

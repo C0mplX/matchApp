@@ -1,0 +1,127 @@
+html {font-size: 1em;height:100%;}
+
+body {
+  background-color: #34495e;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.45;
+  height:100%;
+  color: #ffffff;
+}
+
+p {margin-bottom: 1.3em;}
+
+h1, h2, h3, h4 {
+  margin: 1.414em 0 0.5em;
+  font-weight: inherit;
+  line-height: 1.2;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 5.063em;
+}
+
+h2 {font-size: 3.375em;}
+
+h3 {font-size: 2.25em;}
+
+h4 {font-size: 1.5em;}
+
+small, .font_small {font-size: 0.667em;}
+span.colorX {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+.page        {
+    bottom:0;
+    padding-top:10px;
+    position:absolute;
+    text-align:center;
+    top:0;
+    width:100%;
+}
+
+.start-button {
+  width: 200px;
+  height: 70px;
+  background-color: #1abc9c;
+  text-align: center;
+  font-size: 2em;
+  line-height: 2.4em;
+  color: #fff;
+}
+
+.start-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.color-box-container {
+  width: 100%;
+}
+
+.color-box {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 50%;
+}
+
+.life-container {
+  font-size: 2em;
+  color: #f1c40f;
+}
+
+
+/* ANIMATIONS
+============================================================================= */
+
+/* leaving animations ----------------------------------------- */
+/* rotate and fall */
+@keyframes rotateFall {
+    0%      { transform: rotateZ(0deg); }
+    20%     { transform: rotateZ(10deg); animation-timing-function: ease-out; }
+    40%     { transform: rotateZ(17deg); }
+    60%     { transform: rotateZ(16deg); }
+    100%    { transform: translateY(100%) rotateZ(17deg); }
+}
+
+/* slide in from the bottom */
+@keyframes slideOutLeft {
+    to      { transform: translateX(-100%); }
+}
+
+/* rotate out newspaper */
+@keyframes rotateOutNewspaper {
+    to      { transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+}
+
+/* entering animations --------------------------------------- */
+/* scale up */
+@keyframes scaleUp {
+    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+    from    { transform:translateX(100%); }
+    to      { transform: translateX(0); }
+}
+
+/* slide in from the bottom */
+@keyframes slideInUp {
+    from    { transform:translateY(100%); }
+    to      { transform: translateY(0); }
+}
+
+.ng-enter       { z-index: 8888; }
+.ng-leave       { z-index: 9999; }
+
+.page-home.ng-enter        { animation:scaleUp 0.5s both ease-in; }
+.page-home.ng-leave        { animation:slideOutLeft 0.5s both ease-in; }
+
+.page-main.ng-enter        { animation:slideInRight 0.5s both ease-in; }
+.page-main.ng-leave        { animation:slideOutLeft 0.5s both ease-in; }
