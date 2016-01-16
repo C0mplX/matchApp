@@ -4,7 +4,7 @@ appControllers.controller( 'startCtrl', [ '$scope', function( $scope ) {
   $scope.pageClass = 'page-home';
 } ] );
 
-appControllers.controller( 'mainCtrl', [ '$scope', function( $scope ) {
+appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', function( $scope, $rootScope ) {
   $scope.pageClass = 'page-main';
   //Set the size of the cicules
   setSizeCircule();
@@ -21,7 +21,7 @@ appControllers.controller( 'mainCtrl', [ '$scope', function( $scope ) {
 
   var colorChoosen;
 
-  function setColorTypes() {
+  $scope.setColorTypes = function()  {
 
     var colorName = [
       'Green',
@@ -57,43 +57,87 @@ appControllers.controller( 'mainCtrl', [ '$scope', function( $scope ) {
     $scope.colors = colors;
 
   }
-  setColorTypes();
+    $scope.setColorTypes();
 
   //Reload route on click
-  $scope.reloadRoute = function(event) {
+  $scope.clickColor = function(event) {
 
     if( event == colorChoosen.toLowerCase() ) {
 
         //Correct response
         $scope.points = points+1;
         points = points+1;
-        setColorTypes();
-
+        $scope.setColorTypes();
+        $rootScope.reset();
     }else {
 
         //wrong response
         //Take life
+        $rootScope.reset();
         lifes.shift();
         $scope.lifes = lifes;
-        if( lifes.length > 0 ) {
-            setColorTypes();
-        } else {
-          alert( 'Taper' );
-        }
+        $scope.gameEnd();
 
     }
 
  };
 
+ //Game end
+ $scope.gameEnd = function() {
+   if( lifes.length > 0 ) {
+     $scope.setColorTypes();
+   } else {
+    console.log( 'taber' );
+    $rootScope.stopGameTimer();
+   }
+ };
+
 } ] );
 
-//Sets the size of the cicules
-function setSizeCircule() {
-  angular.element(document).ready(function () {
-    $('.color-box').css('height', $('.color-box').width());
-  });
 
-  jQuery(window).resize(function () {
-    $('.color-box').css('height', $('.color-box').width());
-  });
-}
+appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', function( $scope, $timeout, $rootScope ) {
+    var counter = 10;
+    var reset;
+    $scope.counter = counter;
+    var lifes      = $scope.lifes;
+
+    $rootScope.countdown = function(counter) {
+
+      reset = $timeout(function() {
+      counter--;
+      $scope.counter = counter;
+        console.log( counter);
+        console.log( lifes );
+
+        if( counter <= 0 ) {
+
+          lifes.shift();
+          counter = 10;
+          $scope.lifes = lifes;
+          console.log( $scope.lifes );
+
+          $scope.gameEnd();
+
+        }
+        if( lifes.length > 0 ){
+            $scope.countdown(counter);
+        }
+
+       }, 1000);
+
+    }
+
+    $rootScope.reset = function() {
+      $timeout.cancel(reset);
+        var counter = 10;
+        $scope.counter = 10;
+        $scope.countdown( counter );
+    }
+
+    $rootScope.stopGameTimer = function() {
+      $timeout.cancel(reset);
+    }
+
+    $scope.countdown(counter);
+
+} ] );

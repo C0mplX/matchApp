@@ -17,3 +17,13 @@ app.config( ['$routeProvider',
     } );
   }
 ] );
+//Sets the size of the cicules
+function setSizeCircule() {
+  angular.element(document).ready(function () {
+    $('.color-box').css('height', $('.color-box').width());
+  });
+
+  jQuery(window).resize(function () {
+    $('.color-box').css('height', $('.color-box').width());
+  });
+}
