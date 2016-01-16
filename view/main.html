@@ -8,9 +8,9 @@
 
   <h3>Press the color</h3>
   <span class="colorX" style="color: {{colorChoosenStyle}}">{{chooseColor}}</span>
-  <div class="color-scheme" ng-repeat="(key, value) in colors track by $index" >
+  <div class="color-scheme" ng-repeat="color in bricks track by color.name" >
     <div class="col-xs-4">
-      <div ng-click="clickColor(key)" class="color-box" style="background-color: {{colors[key]}}" ></div>
+      <div ng-click="clickColor(color.name)" class="color-box" style="background-color: {{color.bg}}" ></div>
     </div>
   </div>
   <h1>{{points}}</h1>

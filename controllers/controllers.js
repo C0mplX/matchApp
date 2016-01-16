@@ -12,13 +12,13 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
 
   var points = 0;
   var level = 1;
-  var lifes = ['heart','heart','heart','heart','heart',];
-  var timer = 10;
+  var lifes = ['heart','heart','heart','heart','heart'];
+  $scope.bricks = [];
 
   //Points
   $scope.points = points;
   $scope.lifes = lifes;
-    console.log( lifes );
+  console.log( lifes );
 
   var colorChoosen;
 
@@ -41,24 +41,38 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
       '#d35400'
     ];
 
-    var colors = {
-      'red': '#e74c3c',//red e74c3c
-      'blue': '#3498db',//blue
-      'green':'#2ecc71',//green
-      'yellow':'#f1c40f',//Yellow
-      'purple': '#9b59b6',
-      'orange': '#d35400'
-    };
+    var colors = [
+      {name: 'red',     bg: '#e74c3c'},//red e74c3c
+      {name: 'blue',    bg: '#3498db'},//blue
+      {name: 'green',   bg: '#2ecc71'},//green
+      {name: 'yellow',  bg: '#f1c40f'},//Yellow
+      {name: 'purple',  bg: '#9b59b6'},
+      {name: 'orange',  bg: '#d35400'}
+    ];
 
     colorChoosen = colorName[Math.floor(Math.random() * colorName.length)];
     $scope.chooseColor = colorChoosen;
 
     var colorChoosenStyle = colorsShow[Math.floor(Math.random() * colorsShow.length)];
     $scope.colorChoosenStyle = colorChoosenStyle;
-    $scope.colors = colors;
+
+
+
+
+    function shuffle(o) {
+      for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      return o;
+    };
+
+    if( $scope.points > 10 ) {
+        var shuffit = shuffle( colors )
+    }
+
+    $scope.bricks =  colors;
 
   }
-    $scope.setColorTypes();
+  $scope.setColorTypes();
+
 
   //Reload route on click
   $scope.clickColor = function(event) {
@@ -132,15 +146,40 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
             $scope.countdown(counter);
         }
 
-       }, 1000);
+      }, $scope.dificulty() );
+
+    }
+
+    $scope.dificulty = function() {
+
+      if( $scope.points >= 15 && $scope.points < 30 ) {
+        return 500;
+      }
+      else if( $scope.points >= 30 && $scope.points < 40 ) {
+        return 400;
+      }
+      else if( $scope.points >= 40 && $scope.points < 60 ) {
+        return 300;
+      }
+      else if( $scope.points >= 60 && $scope.points < 80 ) {
+        return 300;
+      }
+      else if( $scope.points >= 80 ) {
+        return 200;
+      }
+      else {
+        return 1000;
+      }
 
     }
 
     $rootScope.reset = function() {
       $timeout.cancel(reset);
-        var counter = 10;
-        $scope.counter = 10;
-        $scope.countdown( counter );
+
+          var counter = 10;
+          $scope.counter = 10;
+          $scope.countdown( counter );
+
     }
 
     $rootScope.stopGameTimer = function() {
