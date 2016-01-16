@@ -5,7 +5,7 @@ appControllers.controller( 'startCtrl', [ '$scope', '$rootScope', function( $sco
 
 } ] );
 
-appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', function( $scope, $rootScope ) {
+appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', function( $scope, $rootScope, $location ) {
   $scope.pageClass = 'page-main';
   //Set the size of the cicules
   setSizeCircule();
@@ -90,6 +90,14 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', function( $scop
    } else {
     console.log( 'taber' );
     $rootScope.stopGameTimer();
+
+    var highScore = localStorage.getItem( 'highscore' );
+    if( highScore < $scope.points ) {
+        localStorage.setItem( 'highscore', $scope.points );
+    }
+    localStorage.setItem( 'nowScore', $scope.points );
+
+    $location.path( '/end' );
    }
  };
 
@@ -144,5 +152,13 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
     $scope.$on('$routeChangeStart', function(next, current) {
         $rootScope.stopGameTimer();
     });
+
+} ] );
+
+//End controller
+appControllers.controller( 'endCtrl', [ '$scope', '$rootScope', function( $scope, $rootScope ) {
+  $scope.pageClass = 'page-end';
+
+  $scope.score = localStorage.getItem( 'nowScore' );
 
 } ] );

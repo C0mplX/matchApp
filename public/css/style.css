@@ -75,6 +75,11 @@ span.colorX {
   color: #f1c40f;
 }
 
+.retry-collom {
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 /* ANIMATIONS
 ============================================================================= */
@@ -102,7 +107,7 @@ span.colorX {
 /* entering animations --------------------------------------- */
 /* scale up */
 @keyframes scaleUp {
-    from    { opacity: 0.3; -webkit-transform: scale(0.8); }
+    from    { opacity: 0.0; -webkit-transform: scale(0.8); }
 }
 
 /* slide in from the right */
@@ -117,6 +122,12 @@ span.colorX {
     to      { transform: translateY(0); }
 }
 
+/* slide in from the bottom */
+@keyframes slideOutDown {
+    from    { transform:translateY(0); }
+    to      { transform: translateY(-100%); }
+}
+
 .ng-enter       { z-index: 8888; }
 .ng-leave       { z-index: 9999; }
 
@@ -124,4 +135,7 @@ span.colorX {
 .page-home.ng-leave        { animation:slideOutLeft 0.2s both ease-in; }
 
 .page-main.ng-enter        { animation:slideInRight 0.2s both ease-in; }
-.page-main.ng-leave        { animation:slideOutLeft 0.2s both ease-in; }
+.page-main.ng-leave        { animation:slideOutDown  0.2s both ease-in; }
+
+.page-end.ng-enter        { animation:scaleUp 0.2s both ease-in; }
+.page-end.ng-leave        { animation:slideOutLeft 0.2s both ease-in; }

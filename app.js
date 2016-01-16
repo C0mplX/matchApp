@@ -14,6 +14,10 @@ app.config( ['$routeProvider',
     .when( '/main', {
       templateUrl: 'view/main.html',
       controller: 'mainCtrl'
+    } )
+    .when( '/end', {
+      templateUrl: 'view/end.html',
+      controller: 'endCtrl'
     } );
   }
 ] );
