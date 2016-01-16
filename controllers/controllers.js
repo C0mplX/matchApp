@@ -92,6 +92,7 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
         //Take life
         //$rootScope.reset();
         lifes.shift();
+        navigator.vibrate(500);
         $scope.lifes = lifes;
         $scope.gameEnd();
 
@@ -210,10 +211,48 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
 } ] );
 
 //End controller
-appControllers.controller( 'endCtrl', [ '$scope', '$rootScope', function( $scope, $rootScope ) {
+appControllers.controller( 'endCtrl', [ '$scope', '$rootScope', '$http',  function( $scope, $rootScope, $http ) {
   $scope.pageClass = 'page-end';
 
   $scope.score = localStorage.getItem( 'nowScore' );
   $scope.showHighScore = localStorage.getItem( 'highscore' );
 
+  $scope.submitScore = function() {
+    if( $scope.user == null ) {
+      $scope.message = 'Enter your name';
+      return;
+    }
+
+    $http({
+        method  : 'POST',
+        url     : 'http://hiclist.com/timyfi/backend/core/addHighScore.php?score='+$scope.score,
+        data    : $.param($scope.user),  // pass in data as strings
+        headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+       })
+        .success(function(data) {
+          console.log(data);
+
+          if (!data.state) {
+            // if not successful, bind errors to error variables
+            $scope.message = data.msg;
+
+          } else {
+            // if successful, bind success message to message
+            $scope.message = data.msg;
+            $scope.submittet = true;
+          }
+        });
+  }
+
+} ] );
+
+appControllers.controller( 'highCtrl', [ '$scope', '$rootScope', '$http',  function( $scope, $rootScope, $http ) {
+
+  $http({
+      method  : 'GET',
+      url     : 'http://hiclist.com/timyfi/backend/core/showHighScore.php',
+     })
+      .success(function(data) {
+        $scope.highscore = data;
+      });
 } ] );

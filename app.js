@@ -18,6 +18,10 @@ app.config( ['$routeProvider',
     .when( '/end', {
       templateUrl: 'view/end.html',
       controller: 'endCtrl'
+    } )
+    .when( '/highscore', {
+      templateUrl: 'view/highscore.html',
+      controller: 'highCtrl'
     } );
   }
 ] );

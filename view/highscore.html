@@ -1,0 +1,10 @@
+<div class="container">
+
+  <h2>Highscore</h2>
+  <div class="retry-collom">
+    <a ng-href="#/main"><div class="start-button">Try again</div></a>
+  </div>
+  <div ng-repeat="score in highscore">
+    <h4>{{score.name}}: {{score.score}}</h4>
+  </div>
+</div>

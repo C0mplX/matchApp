@@ -7,4 +7,16 @@
   <div class="retry-collom">
     <a ng-href="#/main"><div class="start-button">Try again</div></a>
   </div>
+  <h5>submit score</h5>
+  <form novalidate method="post" class="regform" ng-submit="submitScore()" ng-hide="submittet" >
+    <div class="row">
+      <div class="col-md-12">
+        <input type="text" class="form-control" placeholder="Your name" id="scorename" ng-model="user.name" required />
+      </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+      {{message}}
+  <a ng-href="#/highscore">See highscore</a>
 </div>
