@@ -84,6 +84,7 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
         $scope.points = points+1;
         points = points+1;
         $scope.setColorTypes();
+        $scope.addTime();
         //$rootScope.reset();
     }else {
 
@@ -107,6 +108,14 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
    }
  };
 
+//Function to add time after a certen point gain
+ $scope.addTime = function() {
+
+   if( $scope.points > 40 ) {
+     $scope.reset( 2 );
+   }
+
+ }
 
  $scope.setHighScore = function() {
    $rootScope.stopGameTimer();
@@ -147,6 +156,7 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
 
         }
         if( lifes.length > 0 ){
+            $scope.counterAmount = counter;
             $scope.countdown(counter);
         }
 
@@ -176,16 +186,16 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
       }
 
     }
-    /**
-    $rootScope.reset = function() {
+
+    $rootScope.reset = function( time ) {
       $timeout.cancel(reset);
 
-          var counter = 10;
-          $scope.counter = 10;
+          var counter =   $scope.counterAmount +time;
+          $scope.counter =   $scope.counterAmount+time;
           $scope.countdown( counter );
 
     }
-    */
+
 
     $rootScope.stopGameTimer = function() {
       $timeout.cancel(reset);
