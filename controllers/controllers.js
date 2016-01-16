@@ -14,6 +14,7 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
   var level = 1;
   var lifes = ['heart','heart','heart','heart','heart'];
   $scope.bricks = [];
+  $scope.showHighScore = localStorage.getItem( 'highscore' );
 
   //Points
   $scope.points = points;
@@ -83,12 +84,12 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
         $scope.points = points+1;
         points = points+1;
         $scope.setColorTypes();
-        $rootScope.reset();
+        //$rootScope.reset();
     }else {
 
         //wrong response
         //Take life
-        $rootScope.reset();
+        //$rootScope.reset();
         lifes.shift();
         $scope.lifes = lifes;
         $scope.gameEnd();
@@ -102,24 +103,27 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', '$location', fu
    if( lifes.length > 0 ) {
      $scope.setColorTypes();
    } else {
-    console.log( 'taber' );
-    $rootScope.stopGameTimer();
-
-    var highScore = localStorage.getItem( 'highscore' );
-    if( highScore < $scope.points ) {
-        localStorage.setItem( 'highscore', $scope.points );
-    }
-    localStorage.setItem( 'nowScore', $scope.points );
-
-    $location.path( '/end' );
+    $scope.setHighScore();
    }
  };
 
+
+ $scope.setHighScore = function() {
+   $rootScope.stopGameTimer();
+
+   var highScore = localStorage.getItem( 'highscore' );
+   if( highScore < $scope.points ) {
+       localStorage.setItem( 'highscore', $scope.points );
+   }
+   localStorage.setItem( 'nowScore', $scope.points );
+
+   $location.path( '/end' );
+ }
+
 } ] );
 
-
 appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$route', function( $scope, $timeout, $rootScope, $route ) {
-    var counter = 10;
+    var counter = 100;
     var reset;
     $scope.counter = counter;
     var lifes      = $scope.lifes;
@@ -135,11 +139,11 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
         if( counter <= 0 ) {
 
           lifes.shift();
-          counter = 10;
+          //counter = 10;
           $scope.lifes = lifes;
           console.log( $scope.lifes );
 
-          $scope.gameEnd();
+          $scope.setHighScore();
 
         }
         if( lifes.length > 0 ){
@@ -172,7 +176,7 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
       }
 
     }
-
+    /**
     $rootScope.reset = function() {
       $timeout.cancel(reset);
 
@@ -181,6 +185,7 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$
           $scope.countdown( counter );
 
     }
+    */
 
     $rootScope.stopGameTimer = function() {
       $timeout.cancel(reset);
@@ -199,5 +204,6 @@ appControllers.controller( 'endCtrl', [ '$scope', '$rootScope', function( $scope
   $scope.pageClass = 'page-end';
 
   $scope.score = localStorage.getItem( 'nowScore' );
+  $scope.showHighScore = localStorage.getItem( 'highscore' );
 
 } ] );
