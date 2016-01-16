@@ -1,7 +1,8 @@
 var appControllers = angular.module( 'appControllers', [ 'ngAnimate' ] );
 
-appControllers.controller( 'startCtrl', [ '$scope', function( $scope ) {
+appControllers.controller( 'startCtrl', [ '$scope', '$rootScope', function( $scope, $rootScope ) {
   $scope.pageClass = 'page-home';
+
 } ] );
 
 appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', function( $scope, $rootScope ) {
@@ -95,7 +96,7 @@ appControllers.controller( 'mainCtrl', [ '$scope', '$rootScope', function( $scop
 } ] );
 
 
-appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', function( $scope, $timeout, $rootScope ) {
+appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', '$route', function( $scope, $timeout, $rootScope, $route ) {
     var counter = 10;
     var reset;
     $scope.counter = counter;
@@ -139,5 +140,9 @@ appControllers.controller( 'timerCtrl', [ '$scope', '$timeout', '$rootScope', fu
     }
 
     $scope.countdown(counter);
+
+    $scope.$on('$routeChangeStart', function(next, current) {
+        $rootScope.stopGameTimer();
+    });
 
 } ] );

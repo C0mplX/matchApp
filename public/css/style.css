@@ -121,7 +121,7 @@ span.colorX {
 .ng-leave       { z-index: 9999; }
 
 .page-home.ng-enter        { animation:scaleUp 0.5s both ease-in; }
-.page-home.ng-leave        { animation:slideOutLeft 0.5s both ease-in; }
+.page-home.ng-leave        { animation:slideOutLeft 0.2s both ease-in; }
 
-.page-main.ng-enter        { animation:slideInRight 0.5s both ease-in; }
-.page-main.ng-leave        { animation:slideOutLeft 0.5s both ease-in; }
+.page-main.ng-enter        { animation:slideInRight 0.2s both ease-in; }
+.page-main.ng-leave        { animation:slideOutLeft 0.2s both ease-in; }
